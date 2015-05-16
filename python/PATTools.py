@@ -98,10 +98,13 @@ def addHEEPId(process):
                                     eleIsolEffectiveAreas = heepEventPara.eleIsolEffectiveAreas,
                                     applyRhoCorrToEleIsol = heepEventPara.applyRhoCorrToEleIsol,
                                     #eleRhoCorrLabel = heepEventPara.eleRhoCorrTag,#? possible options
-				    	#eleRhoCorrTag = cms.InputTag("fixedGridRhoFastjetAll"),
-    					#eleRhoCorr2012Tag = cms.InputTag("kt6PFJets","rho"),
-				    eleRhoCorrLabel = cms.InputTag("kt6PFJetsForIsolation","rho"),
-				    verticesLabel = cms.InputTag("offlinePrimaryVerticesWithBS"),
+                                    #eleRhoCorrTag = cms.InputTag("fixedGridRhoFastjetAll"),
+                                    #eleRhoCorr2012Tag = cms.InputTag("kt6PFJets","rho"),
+                                    # I was using
+                                    #eleRhoCorrLabel = cms.InputTag("kt6PFJetsForIsolation","rho"),
+                                    #verticesLabel = cms.InputTag("offlinePrimaryVerticesWithBS"),
+                                    eleRhoCorrLabel = heepEventPara.eleRhoCorrTag,
+                                    verticesLabel = heepEventPara.verticesTag,
                                     writeIdAsInt = cms.bool(True),
                                     )
 

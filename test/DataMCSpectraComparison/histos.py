@@ -3,12 +3,16 @@
 import sys, os, FWCore.ParameterSet.Config as cms
 from SUSYBSMAnalysis.Zprime2muAnalysis.Zprime2muAnalysis_cff import switch_hlt_process_name
 from SUSYBSMAnalysis.Zprime2muAnalysis.Zprime2muAnalysis_cfg import process
-#process.source.fileNames =['file:./pat.root']
-process.source.fileNames =['/store/user/federica/PATTuple/DYJetsToEEMuMu_M-120To200_13TeV-madgraph/DY_M-120To200_Phys14_PU20BX25/150317_182312/0000/pat_1.root',
+process.source.fileNames =['file:./pat.root']
+#process.source.fileNames =['/store/user/federica/PATTuple/DYJetsToEEMuMu_M-120To200_13TeV-madgraph/DY_M-120To200_Phys14_PU20BX25/150317_182312/0000/pat_1.root',
                            #'/store/user/rradogna/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/datamc_zpsi5000/a8881ceec144e0dfafbb7486d1b7f8e6/pat_1_1_G9p.root',
-]
+#]
 #process.source.fileNames=['/store/relval/CMSSW_7_1_0_pre4_AK4/RelValProdTTbar/AODSIM/START71_V1-v2/00000/7A3637AA-28B5-E311-BC25-003048678B94.root']
-process.maxEvents.input = 10
+process.maxEvents.input = 100
+
+#process.options.wantSummary = cms.untracked.bool(True)# false di default
+#process.MessageLogger.cerr.FwkReport.reportEvery = 1
+
 from SUSYBSMAnalysis.Zprime2muAnalysis.hltTriggerMatch_cfi import trigger_match, prescaled_trigger_match, trigger_paths, prescaled_trigger_paths, overall_prescale, offline_pt_threshold, prescaled_offline_pt_threshold
 
 # Since the prescaled trigger comes with different prescales in
@@ -125,10 +129,14 @@ for cut_name, Selection in cuts.iteritems():
             alldil.loose_cut = 'isGlobalMuon && pt > 20.'
             alldil.tight_cut = ''
             dil.max_candidates = 100
+            dil.sort_by_pt = True
             dil.do_remove_overlap = False
-            delattr(dil, 'back_to_back_cos_angle_min')
-            delattr(dil, 'vertex_chi2_max')
-            delattr(dil, 'dpt_over_pt_max')
+            if hasattr(dil, 'back_to_back_cos_angle_min'):
+                delattr(dil, 'back_to_back_cos_angle_min')
+            if hasattr(dil, 'vertex_chi2_max'):
+                delattr(dil, 'vertex_chi2_max')
+            if hasattr(dil, 'dpt_over_pt_max'):
+                delattr(dil, 'dpt_over_pt_max')
         elif cut_name == 'OurNoIso':
             alldil.loose_cut = alldil.loose_cut.value().replace(' && isolationR03.sumPt / innerTrack.pt < 0.10', '')
         elif 'MuPrescaled' in cut_name:
@@ -167,20 +175,23 @@ def ntuplify(process, fill_gen_info=False):
         from SUSYBSMAnalysis.Zprime2muAnalysis.HardInteraction_cff import hardInteraction
         process.SimpleNtupler.hardInteraction = hardInteraction
 
-    process.pathSimple *= process.SimpleNtupler * process.SimpleNtuplerEmu
+    if hasattr(process, 'pathSimple'):
+        process.pathSimple *= process.SimpleNtupler * process.SimpleNtuplerEmu
 
 def printify(process):
     process.MessageLogger.categories.append('PrintEvent')
 
     process.load('HLTrigger.HLTcore.triggerSummaryAnalyzerAOD_cfi')
     process.triggerSummaryAnalyzerAOD.inputTag = cms.InputTag('hltTriggerSummaryAOD','','HLT')
-    process.pathSimple *= process.triggerSummaryAnalyzerAOD
+    if hasattr(process, 'pathSimple'):
+        process.pathSimple *= process.triggerSummaryAnalyzerAOD
 
     process.PrintOriginalMuons = cms.EDAnalyzer('PrintEvent', muon_src = cms.InputTag('cleanPatMuonsTriggerMatch'), trigger_results_src = cms.InputTag('TriggerResults','','HLT'))
     process.pathSimple *= process.PrintOriginalMuons
 
     pe = process.PrintEventSimple = cms.EDAnalyzer('PrintEvent', dilepton_src = cms.InputTag('SimpleMuonsPlusMuonsMinus'))
-    process.pathSimple *= process.PrintEventSimple
+    if hasattr(process, 'pathSimple'):
+        process.pathSimple *= process.PrintEventSimple
 
     #- 2011-2012 selection (Nlayers > 8)
     #process.PrintEventOurNew = pe.clone(dilepton_src = cms.InputTag('OurNewMuonsPlusMuonsMinus'))
@@ -189,10 +200,11 @@ def printify(process):
     #process.pathOurNew *= process.PrintEventOurNew * process.PrintEventOurNewSS * process.PrintEventOurNewEmu
 
     #- December 2012 selection (Nlayers > 5, re-tuned TuneP, dpT/pT < 0.3)
-    process.PrintEventOur2012    = pe.clone(dilepton_src = cms.InputTag('Our2012MuonsPlusMuonsMinus'))
-    process.PrintEventOur2012SS  = pe.clone(dilepton_src = cms.InputTag('Our2012MuonsSameSign'))
-    process.PrintEventOur2012Emu = pe.clone(dilepton_src = cms.InputTag('Our2012MuonsElectronsOppSign'))
-    process.pathOur2012 *= process.PrintEventOur2012 * process.PrintEventOur2012SS * process.PrintEventOur2012Emu
+    if hasattr(process, 'pathOur2012'):
+        process.PrintEventOur2012    = pe.clone(dilepton_src = cms.InputTag('Our2012MuonsPlusMuonsMinus'))
+        process.PrintEventOur2012SS  = pe.clone(dilepton_src = cms.InputTag('Our2012MuonsSameSign'))
+        process.PrintEventOur2012Emu = pe.clone(dilepton_src = cms.InputTag('Our2012MuonsElectronsOppSign'))
+        process.pathOur2012 *= process.PrintEventOur2012 * process.PrintEventOur2012SS * process.PrintEventOur2012Emu
 
 def check_prescale(process, trigger_paths, hlt_process_name='HLT'):
     process.load('SUSYBSMAnalysis.Zprime2muAnalysis.CheckPrescale_cfi')

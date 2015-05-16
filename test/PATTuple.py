@@ -36,6 +36,7 @@ if not input_is_MC:
 # Our path. The name 'p' is expected by the configuration of the
 # OutputModule in PATTuple_cfg.
 process.p = cms.Path(process.patDefaultSequence)
+#process.p = cms.Path(process.type0PFMEtCorrection * process.patDefaultSequence)
 
 from SUSYBSMAnalysis.Zprime2muAnalysis.PATTools import AODOnly
 AODOnly(process)
