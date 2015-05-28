@@ -260,9 +260,9 @@ if 'gogo' in sys.argv:
     from SUSYBSMAnalysis.Zprime2muAnalysis.cmsswtools import set_events_to_process
     set_events_to_process(process, [(run, event)])
 
-f = file('outfile', 'w')
-f.write(process.dumpPython())
-f.close()
+#f = file('outfile', 'w')
+#f.write(process.dumpPython())
+#f.close()
 
 if __name__ == '__main__' and 'submit' in sys.argv:
     crab_cfg = '''
@@ -376,15 +376,15 @@ events_per_job = 50000
                 mass_limits = {
                     'dy50'      : (  50,     120),
                     'dy120'     : ( 120,     200),
-                    'dy200'     : ( 400,     800),
-                    'dy400'     : (2300,    3500),
-                    'dy800'     : (7500,    8500),
-                    'dy1400'    : ( 200,     400),
-                    'dy2300'    : ( 800,    1400),
-                    'dy3500'    : (1400,    2300),
-                    'dy4500'    : (3500,    4500),
-                    'dy6000'    : (4500,    6000),
-                    'dy7500'    : (6000,    7500),
+                    'dy200'     : (1400,    2300),
+                    'dy400'     : ( 200,     400),
+                    'dy800'     : (2300,    3500),
+                    'dy1400'    : (3500,    4500),
+                    'dy2300'    : ( 400,     800),
+                    'dy3500'    : (4500,    6000),
+                    'dy4500'    : (6000,    7500),
+                    'dy6000'    : (7500,    8500),
+                    'dy7500'    : ( 800,    1400),
                     'dy8500'    : (8500,    9500),
                     'dy9500'    : (9500,  100000),
                     }
