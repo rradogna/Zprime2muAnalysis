@@ -1,11 +1,7 @@
 import os, FWCore.ParameterSet.Config as cms
 
 from SUSYBSMAnalysis.Zprime2muAnalysis.PATTuple_cfg import process
-## ---
-## Define the path ---> no need to define the path in the unscheduled mode (TJ)
-## ---
-#process.p = cms.Path(process.patDefaultSequence)
-#process.p = cms.Path(process.type0PFMEtCorrection * process.patDefaultSequence)
+process.p = cms.Path(process.countPatLeptons)
 
 # Loose cut on muons; stronger cuts to be applied for different
 # sets of plots (e.g. add our isolation cut, or apply VBTF).

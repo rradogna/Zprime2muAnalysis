@@ -6,7 +6,7 @@ from SUSYBSMAnalysis.Zprime2muAnalysis.PATTools import switchHLTProcessName, AOD
 process.maxEvents.input = 50
 process.GlobalTag.globaltag = 'PHYS14_25_V1::All'
 process.source.fileNames = ['/store/mc/Phys14DR/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/AODSIM/PU20bx25_tsg_PHYS14_25_V1-v1/00000/02BE6C0D-E46E-E411-89C3-003048F0E1B0.root']
-#process.p = cms.Path(process.patDefaultSequence)
+process.p = cms.Path(process.countPatMuons)
 
 pruneMCLeptons(process, use_sim=True)
 AODOnly(process)

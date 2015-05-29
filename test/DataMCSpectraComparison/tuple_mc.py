@@ -6,22 +6,14 @@ from tuple_common import cms, process, crab_cfg
 
 pruneMCLeptons(process, use_sim=True) # because of unscheduled I can't remove this for data.
 
-AODOnly(process)# it contains
-    #removeMuonMCClassification(process)#?
-    #removeSimLeptons(process)
-    #switchHLTProcessName(process, 'REDIGI311X')# ???
+AODOnly(process)
+#switchHLTProcessName(process, 'REDIGI311X')
 
 process.source.fileNames = ['/store/mc/Phys14DR/DYJetsToEEMuMu_M-9500_13TeV-madgraph/AODSIM/PU20bx25_PHYS14_25_V1-v2/00000/18C7C360-E076-E411-9E2F-E0CB4E19F9BC.root',]
-#process.source.fileNames=['/store/relval/CMSSW_7_1_0/RelValZMM_13/GEN-SIM-RECO/POSTLS171_V15-v1/00000/6650F961-99FB-E311-BA90-0025905A48BC.root']
-
-#from PhysicsTools.PatAlgos.patInputFiles_cff import filesRelValProdTTbarAODSIM
-#process.source.fileNames = filesRelValProdTTbarAODSIM
 
 process.maxEvents.input = 10
 
 process.GlobalTag.globaltag = 'PHYS14_25_V1::All'
-#process.GlobalTag.globaltag = 'START71_V1::All'
-#process.GlobalTag.globaltag = 'START53_V7C1::All'
 
 if __name__ == '__main__' and hasattr(sys, 'argv') and 'submit' in sys.argv:
     job_control = '''
