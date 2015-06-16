@@ -50,30 +50,31 @@ class tupleonlysample(sample):
 # https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat8TeV for xsecs (all below in pb)
 # Single-top cross sections are from https://twiki.cern.ch/twiki/bin/viewauth/CMS/SingleTopSigma8TeV
 # K factor for Drell-Yan samples is the ratio of the NNLO to POWHEG cross sections for M > 20 GeV bin, 1915/1871=1.024
+# check cross sections (dibosons)
 samples = [
-    sample('zpsi5000',  'Z\'_{#psi} (5 TeV) #rightarrow #mu^{+}#mu^{-}',  '/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/Phys14DR-PU20bx25_tsg_PHYS14_25_V1-v1/AODSIM',      97890,  48, 1.,  0.0369,  k_factor=1.3, is_zprime=True),
-    sample('dy50',   'DY50',   '/DYJetsToLL_M-50_13TeV-madgraph-pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',   2829164, 37 , 1., 5740,    k_factor=1.),
-    sample('dy120',  'DY120',  '/DYJetsToEEMuMu_M-120To200_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM',   60756, 432, 1., 37,      k_factor=1.049),
-    sample('dy1400', 'DY1400', '/DYJetsToEEMuMu_M-1400To2300_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 23204, 433, 1., 0.00255, k_factor=1.049),
-    sample('dy200',  'DY200',  '/DYJetsToEEMuMu_M-200To400_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',   26430, 434, 1., 5.26,    k_factor=1.049),
-    sample('dy2300', 'DY2300', '/DYJetsToEEMuMu_M-2300To3500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM', 37358, 435, 1., 0.000165, k_factor=1.049),
-    sample('dy3500', 'DY3500', '/DYJetsToEEMuMu_M-3500To4500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 23297, 436, 1., 0.00000758, k_factor=1.049),
-    sample('dy400',  'DY400',  '/DYJetsToEEMuMu_M-400To800_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',   48205, 437, 1., 0.458,   k_factor=1.049),
-    sample('dy4500', 'DY4500', '/DYJetsToEEMuMu_M-4500To6000_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 25925, 438, 1., 0.00000796, k_factor=1.049),
-    sample('dy6000', 'DY6000', '/DYJetsToEEMuMu_M-6000To7500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 28710, 439, 1., 0.000000022, k_factor=1.049),
-    sample('dy7500', 'DY7500', '/DYJetsToEEMuMu_M-7500To8500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 30151, 431, 1., 0.000000000384, k_factor=1.049),
-    sample('dy800',  'DY800',  '/DYJetsToEEMuMu_M-800To1400_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',  24003, 3  , 1., 0.0314, k_factor=1.049),
-    sample('dy8500', 'DY8500', '/DYJetsToEEMuMu_M-8500To9500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM', 32583, 36 , 1., 0.0000000000182, k_factor=1.049),
-    sample('dy9500', 'DY9500', '/DYJetsToEEMuMu_M-9500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM',       37002, 8  , 1., 0.000000000000573, k_factor=1.049),
-    sample('ttbar','t#bar{t}', '/TT_Tune4C_13TeV-pythia8-tauola/Phys14DR-PU20bx25_tsg_PHYS14_25_V1-v1/AODSIM',                  2991609, 2 , 1., 832, k_factor=1.),
-    sample('tW'   ,'tW',       '/T_tW-channel-DR_Tune4C_13TeV-CSA14-powheg-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',    986100,  1, 1., 35.6, k_factor=1.),
-    sample('tbarW','tbarW',    '/Tbar_tW-channel-DR_Tune4C_13TeV-CSA14-powheg-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 971800, 12, 1., 35.6, k_factor=1.),
-#    sample('ww',    'WW',      '/WW_TuneZ2star_8TeV_pythia6_tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',                     10000431,   4, 0.035, 54.8),
-    sample('wz'   ,'WZ',       '/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',           237484, 30, 1., 1.634, k_factor=1.),
-    sample('zz'   ,'ZZ',       '/ZZTo4L_Tune4C_13TeV-powheg-pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',                  1958600, 6, 1., 15.4, k_factor=1.),
-    sample('wjets','W+jets',   '/WJetsToLNu_13TeV-madgraph-pythia8-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',            10017930, 3, 1., 61500, k_factor=1.),
-    sample('inclmu15', 'QCD',  '/QCD_Pt-20toInf_MuEnrichedPt15_PionKaonDecay_Tune4C_13TeV_pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v3/AODSIM', 4767935, 801, 1., 867000000, k_factor=1.),
-]
+           sample('zpsi5000',  'Z\'_{#psi} (5 TeV) #rightarrow #mu^{+}#mu^{-}',  '/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/Phys14DR-PU20bx25_tsg_PHYS14_25_V1-v1/AODSIM',      97890,  2, 1.,  5.48E-5,  k_factor=1., is_zprime=True),
+           sample('dy50',   'DY50',   '/DYJetsToLL_M-50_13TeV-madgraph-pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',   2829164, 37 , 1., 5740,    k_factor=1.),
+           sample('dy120',  'DY120',  '/DYJetsToEEMuMu_M-120To200_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM',   60756, 432, 1., 37,      k_factor=1.),
+           sample('dy1400', 'DY1400', '/DYJetsToEEMuMu_M-1400To2300_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 23204, 433, 1., 7.58E-6 , k_factor=1.),
+           sample('dy200',  'DY200',  '/DYJetsToEEMuMu_M-200To400_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',   26430, 434, 1., 2.55E-3,    k_factor=1.),
+           sample('dy2300', 'DY2300', '/DYJetsToEEMuMu_M-2300To3500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM', 37358, 435, 1., 4.58E-1, k_factor=1.),
+           sample('dy3500', 'DY3500', '/DYJetsToEEMuMu_M-3500To4500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 23297, 436, 1., 7.96E-6, k_factor=1.),
+           sample('dy400',  'DY400',  '/DYJetsToEEMuMu_M-400To800_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',   48205, 432, 1., 5.26,   k_factor=1.),
+           sample('dy4500', 'DY4500', '/DYJetsToEEMuMu_M-4500To6000_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 25925, 433, 1., 2.20E-8, k_factor=1.),
+           sample('dy6000', 'DY6000', '/DYJetsToEEMuMu_M-6000To7500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 28710, 434, 1., 3.84E-10, k_factor=1.),
+           sample('dy7500', 'DY7500', '/DYJetsToEEMuMu_M-7500To8500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 30151, 435, 1., 3.14E-2, k_factor=1.),
+           sample('dy800',  'DY800',  '/DYJetsToEEMuMu_M-800To1400_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',  24003, 436, 1., 1.65E-4, k_factor=1.),
+           sample('dy8500', 'DY8500', '/DYJetsToEEMuMu_M-8500To9500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM', 32583, 36 , 1., 1.82E-11, k_factor=1.),
+           sample('dy9500', 'DY9500', '/DYJetsToEEMuMu_M-9500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM',       37002, 8  , 1., 5.73E-13, k_factor=1.),
+           sample('ttbar','t#bar{t}', '/TT_Tune4C_13TeV-pythia8-tauola/Phys14DR-PU20bx25_tsg_PHYS14_25_V1-v1/AODSIM',                  2991609, 2 , 1., 832, k_factor=1.),
+           sample('tW'   ,'tW',       '/T_tW-channel-DR_Tune4C_13TeV-CSA14-powheg-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',    986100,  1, 1., 35.6, k_factor=1.),
+           sample('tbarW','tbarW',    '/Tbar_tW-channel-DR_Tune4C_13TeV-CSA14-powheg-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM', 971800, 12, 1., 35.6, k_factor=1.),
+           #    sample('ww',    'WW',      '/WWTo2L2Nu_CT10_13TeV-powheg-pythia8-tauola/Spring14dr-PU20bx25_POSTLS170_V5-v1/AODSIM',              899900,   4, 1., 1.08E+1, k_factor=1.),
+           sample('wz'   ,'WZ',       '/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',           237484, 30, 1., 1.634, k_factor=1.),
+           sample('zz'   ,'ZZ',       '/ZZTo4L_Tune4C_13TeV-powheg-pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',                  1958600, 5, 1., 15.4, k_factor=1.),
+           sample('wjets','W+jets',   '/WJetsToLNu_13TeV-madgraph-pythia8-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM',            10017930, 2, 1., 61500, k_factor=1.),
+           sample('inclmu15', 'QCD',  '/QCD_Pt-20toInf_MuEnrichedPt15_PionKaonDecay_Tune4C_13TeV_pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v3/AODSIM', 4767935, 801, 1., 8.67E+8, k_factor=1.),
+           ]
 
 samples.reverse()
 
