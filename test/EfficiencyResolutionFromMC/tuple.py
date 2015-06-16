@@ -5,8 +5,9 @@ from SUSYBSMAnalysis.Zprime2muAnalysis.PATTools import switchHLTProcessName, AOD
 
 process.maxEvents.input = 50
 process.GlobalTag.globaltag = 'PHYS14_25_V1::All'
+#process.source.fileNames = ['/store/mc/Phys14DR/DYJetsToEEMuMu_M-9500_13TeV-madgraph/AODSIM/PU20bx25_PHYS14_25_V1-v2/00000/18C7C360-E076-E411-9E2F-E0CB4E19F9BC.root',]
 process.source.fileNames = ['/store/mc/Phys14DR/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/AODSIM/PU20bx25_tsg_PHYS14_25_V1-v1/00000/02BE6C0D-E46E-E411-89C3-003048F0E1B0.root']
-process.p = cms.Path(process.countPatMuons)
+#process.p = cms.Path(process.patDefaultSequence)
 
 pruneMCLeptons(process, use_sim=True)
 AODOnly(process)
@@ -40,7 +41,8 @@ if __name__ == '__main__' and 'submit' in sys.argv:
     crab_cfg = '''
 [CRAB]
 jobtype = cmssw
-scheduler = condor
+scheduler = remoteGlidein
+use_server = 0
 
 [CMSSW]
 datasetpath = %(dataset)s
@@ -49,14 +51,16 @@ total_number_of_events = -1
 events_per_job = %(events_per_job)s
 get_edm_output = 1
 
+use_dbs3=1
+
 [USER]
 ui_working_dir = crab/crab_effres_%(name)s
 copy_data = 1
-storage_element = T3_US_FNALLPC
+storage_element = T2_IT_Legnaro
 check_user_remote_dir = 0
 publish_data = 1
 publish_data_name = effres_%(name)s
-dbs_url_for_publication = https://cmsdbsprod.cern.ch:8443/cms_dbs_ph_analysis_02_writer/servlet/DBSServlet
+#dbs_url_for_publication = https://cmsdbsprod.cern.ch:8443/cms_dbs_ph_analysis_02_writer/servlet/DBSServlet
 '''
 
     os.system('mkdir -p psets crab')
@@ -65,14 +69,15 @@ dbs_url_for_publication = https://cmsdbsprod.cern.ch:8443/cms_dbs_ph_analysis_02
     
     samples = [
 #        ('dy20',   '/DYToMuMu_M-20_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
-#        ('dy120',  '/DYToMuMu_M-120_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
-#        ('dy200',  '/DYToMuMu_M-200_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
+        ('dy120',  '/DYJetsToEEMuMu_M-120To200_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM'),
+        ('dy200',  '/DYJetsToEEMuMu_M-200To400_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM'),
 #        ('dy500',  '/DYToMuMu_M-500_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
-#        ('dy800',  '/DYToMuMu_M-800_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
+        ('dy800',  '/DYJetsToEEMuMu_M-400To800_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM'),
 #        ('dy1000', '/DYToMuMu_M-1000_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
-#        ('dy1500', '/DYToMuMu_M-1500_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
-#        ('dy2000', '/DYToMuMu_M-2000_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM'),
+        ('dy2000', '/DYJetsToEEMuMu_M-1400To2300_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM'),
+        ('dy3000', '/DYJetsToEEMuMu_M-2300To3500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM'),
         ('dy9500',  '/DYJetsToEEMuMu_M-9500_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v2/AODSIM'),
+        ('dy5000',  '/DYJetsToEEMuMu_M-4500To6000_13TeV-madgraph/Phys14DR-PU20bx25_PHYS14_25_V1-v1/AODSIM'),
 #        ('dy200_c1',  '/DYToMuMu_M-200_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7C1-v1/AODSIM'),
 #        ('dy500_c1',  '/DYToMuMu_M-500_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7C1-v1/AODSIM'),
 #        ('dy800_c1',  '/DYToMuMu_M-800_CT10_TuneZ2star_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7C1-v1/AODSIM'),
@@ -110,7 +115,7 @@ dbs_url_for_publication = https://cmsdbsprod.cern.ch:8443/cms_dbs_ph_analysis_02
 
     for name, dataset in samples:
         print name
-        events_per_job = 26000
+        events_per_job = 5000
 
         pset = open('tuple.py').read()
         #if name == 'dy20':

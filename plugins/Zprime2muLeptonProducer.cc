@@ -124,12 +124,15 @@ pat::Muon* Zprime2muLeptonProducer::cloneAndSwitchMuonTrack(const pat::Muon& muo
 void Zprime2muLeptonProducer::embedTriggerMatch(pat::Muon* new_mu, const std::string& ex, const trigger::TriggerObjectCollection& L3, std::vector<int>& L3_matched) {
   int best = -1;
   float best_dR = trigger_match_max_dR;
+    std::cout<<"L3.size() "<<L3.size()<<" L3_matched.size() "<<L3_matched.size()<<std::endl;
+    
   for (size_t i = 0; i < L3.size(); ++i) {
     // Skip those already used.
     if (L3_matched[i])
       continue;
 
     const float dR = reco::deltaR(L3[i], *new_mu);
+      std::cout<<"dR TRIGGER "<<dR<<std::endl;
     if (dR < best_dR) {
       best = int(i);
       best_dR = dR;
@@ -186,8 +189,10 @@ std::pair<pat::Muon*,int> Zprime2muLeptonProducer::doLepton(const edm::Event& ev
   // pair.
 
   // To use one of the refit tracks, we have to have a global muon.
-  if (!mu.isGlobalMuon())
+  if (!mu.isGlobalMuon()){
     return std::make_pair((pat::Muon*)(0), -1);
+      std::cout<<" is global "<<std::endl;
+  }
 
   // Copy the input muon, and switch its p4/charge/vtx out for that of
   // the selected refit track.
@@ -203,6 +208,8 @@ std::pair<pat::Muon*,int> Zprime2muLeptonProducer::doLepton(const edm::Event& ev
     if (mm.find(cand) != mm.end()) {
       new_mu->addUserData<reco::Particle::LorentzVector>("photon_p4", mm[cand]->p4());
       new_mu->addUserInt("photon_index", mm[cand].key());
+        std::cout<<" mu photon matching "<<std::endl;
+
     }
   }
 
@@ -216,6 +223,7 @@ std::pair<pat::Muon*,int> Zprime2muLeptonProducer::doLepton(const edm::Event& ev
   // Evaluate cuts here with string object selector, and any code that
   // cannot be done in the string object selector (none so far).
   int cutFor = muon_selector(*new_mu) ? 0 : 1;
+    std::cout<<" cutFor "<<cutFor<<std::endl;
 
   return std::make_pair(new_mu, cutFor);
 }
@@ -253,6 +261,7 @@ edm::OrphanHandle<std::vector<T> > Zprime2muLeptonProducer::doLeptons(edm::Event
 }
 
 void Zprime2muLeptonProducer::produce(edm::Event& event, const edm::EventSetup& setup) {
+    std::cout<<" lepton producer "<<std::endl;
   // Grab the match map between PAT photons and PAT muons so we can
   // embed the photon candidates later.
   event.getByLabel(muon_photon_match_src, muon_photon_match_map);

@@ -1,0 +1,79 @@
+2014-11-24 17:13:55.564615:
+Executed:	eval `scram unsetenv -sh` ; lcg-ls  srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+Done with exit code:	0
+and output:
+/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+
+
+2014-11-24 17:13:56.342918:
+Executed:	eval `scram unsetenv -sh` ; lcg-ls -l  srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root | awk '{print $5}'
+Done with exit code:	0
+and output:
+72052047
+
+
+
+2014-11-24 17:14:32.354066:
+Executed:	eval `scram unsetenv -sh` ;  lcg-cp  --verbose  --vo=cms   srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root file:///afs/cern.ch/work/r/rradogna/ZPrime/CMSSW_7_0_1/src/SUSYBSMAnalysis/Zprime2muAnalysis/test/DataMCSpectraComparison/crab/crab_datamc_zpsi1000//res/pat_1_1_Zx1.root
+Done with exit code:	0
+and output:
+Using grid catalog type: UNKNOWN
+Using grid catalog : (null)
+VO name: cms
+Checksum type: None
+Trying SURL srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root ...
+Source SE type: SRMv2
+Source SRM Request Token: -2028653080
+Source URL: srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+File size: 72052047
+Source URL for copy: gsiftp://t2-gftp-02.lnl.infn.it:2811/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+Destination URL: file:/afs/cern.ch/work/r/rradogna/ZPrime/CMSSW_7_0_1/src/SUSYBSMAnalysis/Zprime2muAnalysis/test/DataMCSpectraComparison/crab/crab_datamc_zpsi1000//res/pat_1_1_Zx1.root
+# streams: 1
+            0 bytes      0.00 KB/sec avg      0.00 KB/sec inst
+            0 bytes      0.00 KB/sec avg      0.00 KB/sec inst
+      4194304 bytes   2047.04 KB/sec avg   2047.04 KB/sec inst
+      4194304 bytes   2047.04 KB/sec avg   2047.04 KB/sec inst
+     12582912 bytes   3071.88 KB/sec avg   4097.60 KB/sec inst
+     12582912 bytes   3071.88 KB/sec avg   4097.60 KB/sec inst
+     16777216 bytes   2730.60 KB/sec avg   2048.01 KB/sec inst
+     16777216 bytes   2730.60 KB/sec avg   2048.01 KB/sec inst
+     22020096 bytes   2687.97 KB/sec avg   2560.08 KB/sec inst
+     22020096 bytes   2687.97 KB/sec avg   2560.08 KB/sec inst
+     26214400 bytes   2559.95 KB/sec avg   2047.86 KB/sec inst
+     26214400 bytes   2559.95 KB/sec avg   2047.86 KB/sec inst
+     29360128 bytes   2389.27 KB/sec avg   1535.93 KB/sec inst
+     29360128 bytes   2389.27 KB/sec avg   1535.93 KB/sec inst
+     32505856 bytes   2267.41 KB/sec avg   1536.14 KB/sec inst
+     32505856 bytes   2267.41 KB/sec avg   1536.14 KB/sec inst
+     36700160 bytes   2239.99 KB/sec avg   2048.06 KB/sec inst
+     36700160 bytes   2239.99 KB/sec avg   2048.06 KB/sec inst
+     46137344 bytes   2503.11 KB/sec avg   4608.12 KB/sec inst
+     46137344 bytes   2503.11 KB/sec avg   4608.12 KB/sec inst
+     59768832 bytes   2918.31 KB/sec avg   6653.88 KB/sec inst
+     59768832 bytes   2918.31 KB/sec avg   6653.88 KB/sec inst
+     59768832 bytes   2918.31 KB/sec avg   6653.88 KB/sec inst
+
+Transfer took 22790 ms
+
+
+2014-11-24 17:17:32.028768:
+Executed:	eval `scram unsetenv -sh` ; lcg-ls  srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+Done with exit code:	0
+and output:
+/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+
+
+2014-11-24 17:42:16.794956:
+Executed:	eval `scram unsetenv -sh` ; lcg-ls  srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+Done with exit code:	0
+and output:
+/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+
+
+2014-11-24 18:44:37.044693:
+Executed:	eval `scram unsetenv -sh` ; lcg-ls  srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+Done with exit code:	0
+and output:
+/pnfs/lnl.infn.it/data/cms/store/user/rradogna/ZprimeToMuMu_M-1000_Tune4C_13TeV-pythia8/datamc_zpsi1000_c1/5ae2dc0ad5519e42240ad5a71eb54bed/pat_1_1_Zx1.root
+
+

@@ -93,6 +93,15 @@ class Zprime2muHistosFromPAT : public edm::EDAnalyzer {
   TH1F* IsoNTracks;
   TH1F* IsoNJets;  
   TH1F* NPxHits;
+    //// provvisorio
+    TH1F* NPxHits_trk;
+    TH1F* NPxHits_glb;
+    TH1F* NPxHits_tunep;
+    TH1F* NPxHitsDiff_trk_tunep;
+    TH1F* NPxHitsDiff_trk_glb;
+    TH2F* NPxHits_trk_tunep;
+    TH2F* NPxHits_trk_glb;
+    
   TH1F* NStHits;
   TH1F* NTkHits;
   TH1F* NMuHits;
@@ -212,6 +221,15 @@ Zprime2muHistosFromPAT::Zprime2muHistosFromPAT(const edm::ParameterSet& cfg)
   NStHits = fs->make<TH1F>("NStHits", titlePrefix + "# strip hits",   30, 0, 30);
   NTkHits = fs->make<TH1F>("NTkHits", titlePrefix + "# tracker hits", 40, 0, 40);
   NMuHits = fs->make<TH1F>("NMuHits", titlePrefix + "# muon hits",    55, 0, 55);
+    
+    //////// provvisorio
+    NPxHits_trk= fs->make<TH1F>("NPxHits_trk", titlePrefix + "# pixel hits",    8, 0,  8);
+    NPxHits_glb= fs->make<TH1F>("NPxHits_glb", titlePrefix + "# pixel hits",    8, 0,  8);
+    NPxHits_tunep= fs->make<TH1F>("NPxHits_tunep", titlePrefix + "# pixel hits",    8, 0,  8);
+    NPxHitsDiff_trk_tunep= fs->make<TH1F>("NPxHitsDiff_trk_tunep", titlePrefix + "# pixel hits",    8, 0,  8);
+    NPxHitsDiff_trk_glb= fs->make<TH1F>("NPxHitsDiff_trk_glb", titlePrefix + "# pixel hits",    8, 0,  8);
+    NPxHits_trk_tunep= fs->make<TH2F>("NPxHits_trk_tunep", titlePrefix + "# pixel hits",    8, 0,  8,8, 0,  8);
+    NPxHits_trk_glb= fs->make<TH2F>("NPxHits_trk_glb", titlePrefix + "# pixel hits",    8, 0,  8,8, 0,  8);
 
   NHits        = fs->make<TH1F>("NHits",        titlePrefix + "# hits",         78, 0, 78);
   NInvalidHits = fs->make<TH1F>("NInvalidHits", titlePrefix + "# invalid hits", 78, 0, 78);
@@ -220,6 +238,7 @@ Zprime2muHistosFromPAT::Zprime2muHistosFromPAT(const edm::ParameterSet& cfg)
   NStLayers = fs->make<TH1F>("NStLayers", titlePrefix + "# strip layers",   15, 0, 15);
   NTkLayers = fs->make<TH1F>("NTkLayers", titlePrefix + "# tracker layers", 20, 0, 20);
 
+    
   // Other track variables.
   Chi2dof = fs->make<TH1F>("Chi2dof", titlePrefix + "#chi^{2}/dof", 100, 0, 10);
   TrackD0BS = fs->make<TH1F>("TrackD0BS", titlePrefix + "|d0 wrt BS|", 100, 0, 0.2);
@@ -362,6 +381,16 @@ void Zprime2muHistosFromPAT::fillOfflineMuonHistos(const pat::Muon* mu) {
     NPxLayers->Fill(hp.pixelLayersWithMeasurement());
     NStLayers->Fill(hp.stripLayersWithMeasurement());
     NTkLayers->Fill(hp.trackerLayersWithMeasurement());
+      
+   //////// provvisorio
+   NPxHits_trk->Fill(mu->innerTrack()->hitPattern().numberOfValidPixelHits());
+   NPxHits_glb->Fill(mu->globalTrack()->hitPattern().numberOfValidPixelHits());
+   NPxHits_tunep->Fill(hp.numberOfValidPixelHits());
+      
+      NPxHitsDiff_trk_tunep->Fill(mu->innerTrack()->hitPattern().numberOfValidPixelHits()-hp.numberOfValidPixelHits());
+      NPxHitsDiff_trk_glb->Fill(mu->innerTrack()->hitPattern().numberOfValidPixelHits()-mu->globalTrack()->hitPattern().numberOfValidPixelHits());
+      NPxHits_trk_tunep->Fill(mu->innerTrack()->hitPattern().numberOfValidPixelHits(),hp.numberOfValidPixelHits());
+      NPxHits_trk_glb->Fill(mu->innerTrack()->hitPattern().numberOfValidPixelHits(),mu->globalTrack()->hitPattern().numberOfValidPixelHits());
   }
 }
 
@@ -478,6 +507,7 @@ void Zprime2muHistosFromPAT::fillDileptonHistos(const pat::CompositeCandidate& d
   if (dil.hasUserFloat("vertexM") && dil.hasUserFloat("vertexMError")) {
     float vertex_mass = dil.userFloat("vertexM");
     float vertex_mass_err = dil.userFloat("vertexMError");
+      std::cout<<"***************** filling dil mass "<<dil.mass()<<" vtx constrain "<<vertex_mass<<std::endl;
     DimuonMassVertexConstrained->Fill(vertex_mass);
     DimuonMassVtxConstrainedLog->Fill(vertex_mass);
     DimuonMassConstrainedVsUn->Fill(dil.mass(), vertex_mass);

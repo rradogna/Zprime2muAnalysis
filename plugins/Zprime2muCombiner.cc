@@ -45,7 +45,8 @@ struct Zprime2muPairSelector {
     else if (e2)
       return electron_ok(c2) && loose(c1) && tight(c1);
 
-    //printf("in mumu Zprime2muPairSelector %s with c1 pt %f c2 pt %f  loose1 %i loose2 %i tight1 %i tight2 %i\n", module_label.c_str(), c1.pt(), c2.pt(), loose(c1), loose(c2), tight(c1), tight(c2));
+    printf("in mumu Zprime2muPairSelector %s with c1 pt %f c2 pt %f  loose1 %i loose2 %i tight1 %i tight2 %i\n", module_label.c_str(), c1.pt(), c2.pt(), loose(c1), loose(c2), tight(c1), tight(c2));
+      if(tight(c1)==0 && tight(c2)==0) printf(" NO trigger matching ------------------");
     return loose(c1) && loose(c2) && (tight(c1) || tight(c2));
   }
 };
@@ -54,7 +55,7 @@ namespace reco {
   namespace modules {
     template<>
     struct ParameterAdapter<StringCutObjectSelector<reco::Candidate, true> > {
-      static StringCutObjectSelector<reco::Candidate, true> make(const edm::ParameterSet& cfg,edm::ConsumesCollector & iC) {
+      static StringCutObjectSelector<reco::Candidate, true> make(const edm::ParameterSet& cfg,edm::ConsumesCollector & iC) {//raffa, was  make(const edm::ParameterSet& cfg)
 	return StringCutObjectSelector<reco::Candidate, true>(cfg.getParameter<std::string>("cut"));
       }
     };

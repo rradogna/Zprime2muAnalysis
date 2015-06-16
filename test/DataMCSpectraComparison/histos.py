@@ -4,15 +4,11 @@ import sys, os, FWCore.ParameterSet.Config as cms
 from SUSYBSMAnalysis.Zprime2muAnalysis.Zprime2muAnalysis_cff import switch_hlt_process_name
 from SUSYBSMAnalysis.Zprime2muAnalysis.Zprime2muAnalysis_cfg import process
 process.source.fileNames =['file:./pat.root']
-#process.source.fileNames =['/store/user/federica/PATTuple/DYJetsToEEMuMu_M-120To200_13TeV-madgraph/DY_M-120To200_Phys14_PU20BX25/150317_182312/0000/pat_1.root',
-                           #'/store/user/rradogna/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/datamc_zpsi5000/a8881ceec144e0dfafbb7486d1b7f8e6/pat_1_1_G9p.root',
+#process.source.fileNames =[#'/store/user/federica/PATTuple/DYJetsToEEMuMu_M-120To200_13TeV-madgraph/DY_M-120To200_Phys14_PU20BX25/150317_182312/0000/pat_1.root',
+#                           '/store/user/rradogna/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/datamc_zpsi5000/a8881ceec144e0dfafbb7486d1b7f8e6/pat_1_1_G9p.root',
 #]
 #process.source.fileNames=['/store/relval/CMSSW_7_1_0_pre4_AK4/RelValProdTTbar/AODSIM/START71_V1-v2/00000/7A3637AA-28B5-E311-BC25-003048678B94.root']
-process.maxEvents.input = 100
-
-#process.options.wantSummary = cms.untracked.bool(True)# false di default
-#process.MessageLogger.cerr.FwkReport.reportEvery = 1
-
+process.maxEvents.input = 10
 from SUSYBSMAnalysis.Zprime2muAnalysis.hltTriggerMatch_cfi import trigger_match, prescaled_trigger_match, trigger_paths, prescaled_trigger_paths, overall_prescale, offline_pt_threshold, prescaled_offline_pt_threshold
 
 # Since the prescaled trigger comes with different prescales in
@@ -260,9 +256,9 @@ if 'gogo' in sys.argv:
     from SUSYBSMAnalysis.Zprime2muAnalysis.cmsswtools import set_events_to_process
     set_events_to_process(process, [(run, event)])
 
-#f = file('outfile', 'w')
-#f.write(process.dumpPython())
-#f.close()
+f = file('outfile', 'w')
+f.write(process.dumpPython())
+f.close()
 
 if __name__ == '__main__' and 'submit' in sys.argv:
     crab_cfg = '''
@@ -362,6 +358,7 @@ events_per_job = 50000
 
         from SUSYBSMAnalysis.Zprime2muAnalysis.MCSamples import samples
 
+#        combine_dy_samples = 0
         combine_dy_samples = len([x for x in samples if x.name in ['dy50', 'dy120', 'dy200', 'dy400', 'dy800', 'dy1400', 'dy2300', 'dy3500', 'dy4500', 'dy6000', 'dy7500', 'dy8500', 'dy9500']]) > 0
         print 'combine_dy_samples:', combine_dy_samples
 

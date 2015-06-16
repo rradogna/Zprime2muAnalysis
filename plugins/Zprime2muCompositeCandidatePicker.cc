@@ -150,7 +150,7 @@ void Zprime2muCompositeCandidatePicker::remove_overlap(pat::CompositeCandidateCo
 
   // Don't bother doing anything if there's just one candidate.
   if (cands.size() < 2) return; 
-
+    std::cout<<" more than one candidate "<<std::endl;
   pat::CompositeCandidateCollection::iterator p, q;
   for (p = cands.begin(); p != cands.end() - 1; ) {
     for (q = p + 1; q != cands.end(); ++q) {         
@@ -208,6 +208,7 @@ std::pair<bool, float> Zprime2muCompositeCandidatePicker::back_to_back_cos_angle
   assert(dil.numberOfDaughters() == 2);
   const float cos_angle = dil.daughter(0)->momentum().Dot(dil.daughter(1)->momentum()) / dil.daughter(0)->p() / dil.daughter(1)->p();
   return std::make_pair(cos_angle >= back_to_back_cos_angle_min, cos_angle);
+    std::cout<<" cos angle "<<cos_angle<<std::endl;
 }
 
 std::pair<bool, CachingVertex<5> > Zprime2muCompositeCandidatePicker::vertex_constrained_fit(const pat::CompositeCandidate& dil) const {
@@ -218,6 +219,8 @@ std::pair<bool, CachingVertex<5> > Zprime2muCompositeCandidatePicker::vertex_con
 
   KalmanVertexFitter kvf(true);
   CachingVertex<5> v = kvf.vertex(get_transient_tracks(dil));
+    std::cout<<" dil.daughter(0)->pt() "<<dil.daughter(0)->pt()<<" dil.daughter(1)->pt() "<<dil.daughter(1)->pt()<<std::endl;
+    std::cout<<" v.totalChiSquared()/v.degreesOfFreedom() "<<v.totalChiSquared()/v.degreesOfFreedom()<<std::endl;
 
   return std::make_pair(v.isValid() && v.totalChiSquared()/v.degreesOfFreedom() <= vertex_chi2_max, v);
 }
@@ -264,6 +267,7 @@ std::pair<bool, float> Zprime2muCompositeCandidatePicker::dpt_over_pt(const pat:
 	  const reco::Track* tk = patmuon::getPickedTrack(*mu).get();
 	  if (tk) {
 	    const double dpt_over_pt = ptError(tk)/tk->pt();
+          std::cout<<" ptError(tk)/tk->pt() "<<ptError(tk)/tk->pt()<<std::endl;
 	    if (dpt_over_pt > dpt_over_pt_largest) dpt_over_pt_largest = dpt_over_pt;
 	  }
 	}

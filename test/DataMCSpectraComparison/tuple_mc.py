@@ -4,16 +4,32 @@ import sys, os
 from SUSYBSMAnalysis.Zprime2muAnalysis.PATTools import switchHLTProcessName,AODOnly,removeMuonMCClassification,removeSimLeptons, pruneMCLeptons
 from tuple_common import cms, process, crab_cfg
 
-pruneMCLeptons(process, use_sim=True) # because of unscheduled I can't remove this for data.
+# problema con pruned ed unscheduled, cioe anche se io ho il remove quello nn va avanti.
+pruneMCLeptons(process, use_sim=True) # need to decide whether to move AODOnly() call in here, if so use_sim should just be set False
 
-AODOnly(process)
-#switchHLTProcessName(process, 'REDIGI311X')
+AODOnly(process) # definito in PATTools, ma l'ho modificato
+#oltre alle menate AOD only, contienea i due processi sotto
+#removeMuonMCClassification(process)#??? # throw the baby out with the
+#removeSimLeptons(process)
+#switchHLTProcessName(process, 'REDIGI311X')#no idea????
 
-process.source.fileNames = ['/store/mc/Phys14DR/DYJetsToEEMuMu_M-9500_13TeV-madgraph/AODSIM/PU20bx25_PHYS14_25_V1-v2/00000/18C7C360-E076-E411-9E2F-E0CB4E19F9BC.root',]
+#!!!!!
+#process.patDefaultSequence.remove(process.cleanPatElectrons*process.selectedPatElectrons*process.patElectrons*process.electronMatch)
+
+process.source.fileNames = ['file:./event_1_2_115.root'
+                            #'/store/mc/Phys14DR/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/AODSIM/PU20bx25_tsg_PHYS14_25_V1-v1/00000/02BE6C0D-E46E-E411-89C3-003048F0E1B0.root',
+#                            '/store/mc/Spring14dr/WWTo2L2Nu_CT10_13TeV-powheg-pythia8-tauola/AODSIM/PU20bx25_POSTLS170_V5-v1/00000/00276B1B-092C-E411-96C3-002590D0AF8A.root']
+#process.source.fileNames=['/store/relval/CMSSW_7_1_0/RelValZMM_13/GEN-SIM-RECO/POSTLS171_V15-v1/00000/6650F961-99FB-E311-BA90-0025905A48BC.root'
+                            ]
+
+#from PhysicsTools.PatAlgos.patInputFiles_cff import filesRelValProdTTbarAODSIM
+#process.source.fileNames = filesRelValProdTTbarAODSIM
 
 process.maxEvents.input = 10
 
 process.GlobalTag.globaltag = 'PHYS14_25_V1::All'
+#process.GlobalTag.globaltag = 'START71_V1::All'
+#process.GlobalTag.globaltag = 'POSTLS170_V5::All'
 
 if __name__ == '__main__' and hasattr(sys, 'argv') and 'submit' in sys.argv:
     job_control = '''

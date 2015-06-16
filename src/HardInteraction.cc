@@ -54,7 +54,7 @@ void HardInteraction::Clear() {
 
 bool HardInteraction::IsValid() const {
   //return quark != 0 && resonance != 0 && lepPlus != 0 && lepMinus != 0 && lepPlusNoIB != 0 && lepMinusNoIB != 0;
-  return quark != 0 && resonance != 0 && lepPlus != 0 && lepMinus != 0; //could happen that the Z' decay directly in status1 muons and we don't have lepPlusNoIB lepMinusNoIB.
+  return quark != 0 && resonance != 0 && lepPlus != 0 && lepMinus != 0;
 }
 
 void HardInteraction::Fill(const edm::Event& event) {
@@ -88,7 +88,7 @@ void HardInteraction::Fill(const reco::GenParticleCollection& genParticles) {
 	  resonance = &*genp;
       }
     }
-    else if(genp->status() == 23) {//it was 3
+    else if(genp->status() == 23) {  
       if (pdgId == leptonFlavor) {
       ///std::cout<<"leptonFlavor"<<std::endl;
 	// We found the l-. Make sure we didn't find a second one.

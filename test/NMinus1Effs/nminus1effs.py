@@ -9,13 +9,13 @@ readFiles = cms.untracked.vstring()
 secFiles = cms.untracked.vstring() 
 process.source = cms.Source ("PoolSource",fileNames = readFiles, secondaryFileNames = secFiles)
 readFiles.extend( [
-       '/store/user/rradogna/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/datamc_zpsi5000/a8881ceec144e0dfafbb7486d1b7f8e6/pat_100_1_Hw6.root' ] );
+       '/store/user/rradogna/ZprimeToMuMu_M-5000_Tune4C_13TeV-pythia8/datamc_zpsi5000/a8881ceec144e0dfafbb7486d1b7f8e6/pat_100_1_Hw6.root',] );
 
 
 secFiles.extend( [
                ] )
 
-process.maxEvents.input = 10
+process.maxEvents.input = -1
 
 # Define the numerators and denominators, removing cuts from the
 # allDimuons maker. "NoX" means remove cut X entirely (i.e. the
@@ -26,6 +26,7 @@ process.maxEvents.input = 10
 # try to check those with a simple string test below.
 
 cuts = [
+    #('Eta',   'abs(eta) > 1.0'),
     ('Pt',      'pt > 45'),
     ('DB',      'abs(dB) < 0.2'),
     ('Iso',     'isolationR03.sumPt / innerTrack.pt < 0.10'),
@@ -97,6 +98,10 @@ delattr(process.dimuonsNoCosm, 'back_to_back_cos_angle_min')
 process.NoCosm = HistosFromPAT.clone(dilepton_src = 'dimuonsNoCosm', leptonsFromDileptons = True)
 process.p *= process.allDimuonsNoCosm * process.dimuonsNoCosm * process.NoCosm
 
+f = file('outfile_nminus1eff', 'w')
+f.write(process.dumpPython())
+f.close()
+
 if __name__ == '__main__' and 'submit' in sys.argv:
     crab_cfg = '''
 [CRAB]
@@ -167,6 +172,7 @@ events_per_job = 50000
 
         from SUSYBSMAnalysis.Zprime2muAnalysis.MCSamples import *
         samples =[dy50, dy120, dy200, dy400, dy800, dy1400, dy2300, dy3500, dy4500, dy6000, dy7500, dy8500, dy9500, zpsi5000, ttbar, inclmu15]
+        #[dy200]#dy120]#dy200]#zpsi5000]#zmumu, ttbar, dy120_c1, dy200_c1, dy500_c1, dy800_c1, dy1000_c1, dy1500_c1, dy2000_c1, inclmu15]
         for sample in samples:
             print sample.name
             open('crab.cfg', 'wt').write(crab_cfg % sample)
